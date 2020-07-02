@@ -131,7 +131,6 @@ const FoodDetails: React.FC = () => {
 
     const total =
       (totalExtrasValue + parseFloat(`${food.price}`)) * foodQuantity;
-    console.log(totalExtrasValue);
 
     return formatValue(total);
   }, [extras, food, foodQuantity]);
