@@ -86,9 +86,8 @@ const FoodDetails: React.FC = () => {
     loadFood();
   }, [routeParams]);
 
-  async function handleIncrementExtra(id: number): void {
+  function handleIncrementExtra(id: number): void {
     // Increment extra quantity
-
     const extrasUpdated = [...extras];
     const index = extrasUpdated.findIndex(extra => extra.id === id);
     extrasUpdated[index].quantity += 1;
@@ -117,6 +116,10 @@ const FoodDetails: React.FC = () => {
 
   const toggleFavorite = useCallback(() => {
     // Toggle if food is favorite or not
+
+    api.post('favorites', food);
+
+    setIsFavorite(!isFavorite);
   }, [isFavorite, food]);
 
   const cartTotal = useMemo(() => {
