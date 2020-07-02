@@ -86,20 +86,33 @@ const FoodDetails: React.FC = () => {
     loadFood();
   }, [routeParams]);
 
-  function handleIncrementExtra(id: number): void {
+  async function handleIncrementExtra(id: number): void {
     // Increment extra quantity
+
+    const extrasUpdated = [...extras];
+    const index = extrasUpdated.findIndex(extra => extra.id === id);
+    extrasUpdated[index].quantity += 1;
+
+    setExtras(extrasUpdated);
   }
 
   function handleDecrementExtra(id: number): void {
     // Decrement extra quantity
+    const extrasUpdated = [...extras];
+    const index = extrasUpdated.findIndex(extra => extra.id === id);
+    extrasUpdated[index].quantity > 0 && (extrasUpdated[index].quantity -= 1);
+
+    setExtras(extrasUpdated);
   }
 
   function handleIncrementFood(): void {
     // Increment food quantity
+    setFoodQuantity(foodQuantity + 1);
   }
 
   function handleDecrementFood(): void {
     // Decrement food quantity
+    foodQuantity > 1 && setFoodQuantity(foodQuantity - 1);
   }
 
   const toggleFavorite = useCallback(() => {
