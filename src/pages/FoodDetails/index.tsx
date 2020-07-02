@@ -129,13 +129,22 @@ const FoodDetails: React.FC = () => {
       return extra.quantity * extra.value + value;
     }, 0);
 
-    const total = (totalExtrasValue + food.price) * foodQuantity;
+    const total =
+      (totalExtrasValue + parseFloat(`${food.price}`)) * foodQuantity;
+    console.log(totalExtrasValue);
 
     return formatValue(total);
   }, [extras, food, foodQuantity]);
 
   async function handleFinishOrder(): Promise<void> {
     // Finish the order and save on the API
+    let foodToSave = food;
+    delete foodToSave.extras;
+    foodToSave = Object.assign(foodToSave, { extras });
+
+    await api.post('orders', foodToSave);
+
+    navigation.goBack();
   }
 
   // Calculate the correct icon name
